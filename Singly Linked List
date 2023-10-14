@@ -1,0 +1,86 @@
+#include<iostream>
+using namespace std;
+class node{
+ public:
+    int val;
+    node* next;
+    node(int data){
+        val=data;
+        next=NULL;
+    }
+};
+void insertatfirst(node* &head,int val){
+    node* new_node=new node(val);
+    new_node->next=head;
+    head=new_node;
+}
+void insertatend(node* &head,int val){
+    node* new_node=new node(val);
+    node* temp=head;
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next=new_node;
+}
+void insertatrandom(node* &head,int val,int pos){
+    node* new_node=new node(val);
+    int curr=1;
+    node* temp=head;
+    while(curr!=pos-1){
+        curr++;
+        temp=temp->next;
+    }
+    new_node->next=temp->next;
+    temp->next=new_node;
+}
+void deleteatfirst(node* &head){
+    node* temp=head;
+   head =head->next;
+    free(temp);
+}
+void deleteatlast(node* &head){
+    node* temp=head;
+    while(temp->next->next!=NULL){
+        temp=temp->next;
+    }
+    node* x=temp->next->next;
+     temp->next=NULL;
+    free(x);
+}
+void deleteatrandom(node* &head,int pos){
+    node* prev=head;
+    int curr=1;
+    while(curr!=pos-1){
+        curr++;
+        prev=prev->next;
+    }
+    node* temp=prev->next;
+    prev->next=temp->next;
+    free(temp);
+}
+void display(node* head){
+    node* temp=head;
+    while(temp!=NULL){
+        cout<<temp->val<<"->";
+        temp=temp->next;
+    }
+    cout<<"Null"<<endl;
+
+}
+
+int main(){
+    node* head=NULL;
+    insertatfirst(head,5);
+    insertatfirst(head,4);
+    insertatfirst(head,3);
+    insertatend(head,6);
+    insertatrandom(head,4,2);
+    deleteatfirst(head);
+    deleteatlast(head);
+    insertatend(head,7);
+    deleteatrandom(head,3);
+    display(head);
+    
+    
+    return 0;
+}
